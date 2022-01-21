@@ -46,6 +46,7 @@ body{
     width: 19.5rem;
     font-size: 2.5rem;
     line-height: 0px;
+    background-color: black;
 }
 
 .buttonIn{
@@ -77,7 +78,7 @@ body{
 
 .BoldFONT{
     font-weight: 700;
-    font-size: 2.4rem;
+    font-size: 2.2rem;
     line-height: 2.5rem;
 }
 
