@@ -1,11 +1,11 @@
 import {weatherDefault, getDefaultCity, getCityWeather} from './scripts.js';
 import convertoF from './conversions.js';
 
- let currentDegrees = document.getElementById('currentDegrees'),
+let currentDegrees = document.getElementById('currentDegrees'),
  currentLowDegrees = document.getElementById('currentLowDegrees'),
  currentHighDegrees = document.getElementById('currentHighDegrees'),
  currenWind = document.getElementById('currenWind'),
- currentHumidity = document.getElementById('currentHumidity1'),
+ currentHumidity = document.getElementById('currentHumidity'),
  currentDegrees1 = document.getElementById('currentDegrees1'),
  currentLowDegrees1 = document.getElementById('currentLowDegrees1'),
  currentHighDegrees1 = document.getElementById('currentHighDegrees1'),
@@ -30,7 +30,9 @@ import convertoF from './conversions.js';
  currentLowDegrees5 = document.getElementById('currentLowDegrees5'),
  currentHighDegrees5 = document.getElementById('currentHighDegrees5'),
  currentWind5 = document.getElementById('currentWind5'),
- currentHumidity5 = document.getElementById('currentHumidity5');
+ currentHumidity5 = document.getElementById('currentHumidity5'),
+ cityHead = document.getElementById('cityHead'),
+ favoriteBTN = document.getElementById('favoriteBTN');
 
 
 async function displayDefault(){
@@ -71,6 +73,10 @@ async function displayDefault(){
     currentHighDegrees5.textContent = `${convertoF(weatherDefault.list[32].main.temp_max)}°F`;
     currentWind5.textContent = `${(weatherDefault.list[32].wind.speed).toFixed(1)}km/hr`;
     currentHumidity5.textContent = `${weatherDefault.list[32].main.humidity}%`;
+
+    cityHead.textContent = `${weatherDefault.city.name}`
 };
 
 displayDefault();
+
+
