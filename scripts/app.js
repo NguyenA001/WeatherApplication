@@ -66,7 +66,6 @@ let currentDegrees = document.getElementById('currentDegrees'),
 
 async function displayDefault(){
     await getDefaultCity();
-    console.log(weatherDefault);
     displayData();
 
 };
@@ -76,7 +75,6 @@ displayDefault();
 
 searchCityBTN.addEventListener('click', async function(e){
     await getCityWeather(userInputCity.value);
-    console.log(await getCityWeather(userInputCity.value));
     displayData();
 
     let data = GetLocalStorage();
@@ -155,41 +153,50 @@ function displayDate(x){
     return DATEdisplay[0];
 }
 
-import {RemoveFromLocalStorage, SaveToLocalStoragebyCityName, creatingFavoriteList, emptyHTML, GetLocalStorage} from './favorites.js'
+import {RemoveFromLocalStorage, SaveToLocalStoragebyCityName, GetLocalStorage} from './favorites.js'
 let favoriteBTN = document.getElementById('favoriteBTN');
+let injectHere = document.getElementById('injectHere');
 let favON = false;
 
 favoriteBTN.addEventListener('click', function(){
 
     if(favON == true){
         favoriteBTN.src = "./images/Heart.png"
-        RemoveFromLocalStorage(weatherDefault.city.name)
+        RemoveFromLocalStorage(weatherDefault.city.name);
         emptyHTML(weatherDefault.city.name);
     }
     else{
         favoriteBTN.src = "./images/RedHeart.png"
-        SaveToLocalStoragebyCityName(weatherDefault.city.name)
+        SaveToLocalStoragebyCityName(weatherDefault.city.name);
         creatingFavoriteList(weatherDefault.city.name);
     }
     favON = !favON;
 
 });
 
+function creatingFavoriteList(cityName){
+    var a = document.createElement('a');
+    a.className = "dropdown-item textWhite";
+    a.textContent = cityName;
+    a.id = cityName;
+    let li = document.createElement('li');
+    li.appendChild(a); 
+    injectHere.appendChild(li)
+
+    let favoriteCities = document.getElementById(cityName);
+
+    favoriteCities.addEventListener('click', async function(){
+        await getCityWeather(cityName);
+        displayData();
+    });
+}
+
+function emptyHTML(cityName){
+    let x = document.getElementById(cityName);
+    x.remove();
+}
+
 GetLocalStorage();
-
-// function favoriteCLICK(cityName){
-//     let favoriteCities = document.getElementById(cityName);
-//     favoriteCities.addEventListener('click', function(cityName){
-//         getCityWeather(cityName);
-//         displayData();
-//     });
-// }
-
-// addEventListener('click', function(cityName){
-//     getCityWeather(cityName);
-//     displayData();
-// });
-
 
 function displayData(){
     currentDegrees.textContent = `${convertoF(weatherDefault.list[0].main.temp)}°F`;
@@ -248,3 +255,5 @@ function displayData(){
 
     cityHead.textContent = `${weatherDefault.city.name}`
 }
+
+

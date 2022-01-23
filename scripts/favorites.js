@@ -2,6 +2,14 @@ let favorites = [];
 
 function SaveToLocalStoragebyCityName(cityName)
 {
+    if(localStorage.getItem('Favorites') === null)
+    {
+        favorites = [];
+    }
+    else
+    {
+        favorites = JSON.parse(localStorage.getItem('Favorites'));
+    }
     favorites.push(cityName);
     localStorage.setItem('Favorites', JSON.stringify(favorites));
 }
@@ -25,30 +33,4 @@ function GetLocalStorage(){
 
 //LOCAL STORAGE-----------------------------------------------------
 
-let injectHere = document.getElementById('injectHere');
-
-function creatingFavoriteList(cityName){
-    var a = document.createElement('a');
-    a.className = "dropdown-item textWhite";
-    a.textContent = cityName;
-    a.id = cityName;
-    let li = document.createElement('li');
-    li.appendChild(a);
-    return injectHere.appendChild(li);
-}
-
-function emptyHTML(cityName){
-    let x = document.getElementById(cityName);
-    x.remove();
-}
-
-// let cityName = document.getElementById('cityName');
-
-// a.id.addEventListener('click', function(cityName){
-//     getCityWeather(cityName);
-//     displayData();
-// });
-
-
-
-export {RemoveFromLocalStorage, SaveToLocalStoragebyCityName, creatingFavoriteList, emptyHTML, GetLocalStorage}
+export {RemoveFromLocalStorage, SaveToLocalStoragebyCityName, GetLocalStorage}
