@@ -33,4 +33,9 @@ function GetLocalStorage(){
 
 //LOCAL STORAGE-----------------------------------------------------
 
+if (window.PerformanceNavigationTiming.type != "reload" ) 
+{
+    localStorage.clear('Favorites');
+}
+
 export {RemoveFromLocalStorage, SaveToLocalStoragebyCityName, GetLocalStorage}
