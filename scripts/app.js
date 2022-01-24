@@ -2,11 +2,19 @@
 import creatingElements from './elements.js'
 import {weatherDefault, getCityWeather} from './scripts.js';
 import convertoF from './conversions.js';
+import {prod, dev} from './environment.js'
+let apiKey;
+
+if(prod.isLive){
+    apiKey = prod.apiKey;
+} else{
+    apiKey = dev.apiKey;
+}
 
 creatingElements();
 
 searchCityBTN.addEventListener('click', async function(e){
-        await getCityWeather(userInputCity.value.toLowerCase());
+        await getCityWeather(userInputCity.value.toLowerCase(), apiKey);
         displayData();
     
         let data = GetLocalStorage();
@@ -119,7 +127,7 @@ function creatingFavoriteList(cityName){
     let favoriteCities = document.getElementById(cityName);
 
     favoriteCities.addEventListener('click', async function(){
-        await getCityWeather(cityName);
+        await getCityWeather(cityName, apiKey);
         let data = GetLocalStorage();
         if(data.includes(weatherDefault.city.name))
         {

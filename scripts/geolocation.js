@@ -1,4 +1,12 @@
 import {forGeoLocation} from './scripts.js'
+import {prod, dev} from './environment.js'
+let apiKey;
+
+if(prod.isLive){
+    apiKey = prod.apiKey;
+} else{
+    apiKey = dev.apiKey;
+}
 
 let currrentLongitude, currentLatitude;
 
@@ -6,7 +14,7 @@ function success(position){
     console.log(position);
     currrentLongitude = position.coords.longitude;
     currentLatitude = position.coords.latitude;
-    forGeoLocation(currrentLongitude, currentLatitude);
+    forGeoLocation(currrentLongitude, currentLatitude, apiKey);
 }
 
 function error(err){
